@@ -1,6 +1,7 @@
 import RestaurantCard from "./RestaurantCard";
-import resList from "../utls/mockData";
+// import resList from "../utls/mockData";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Icon } from "@iconify-icon/react";
 import Shimmer from "./Shimmer";
 
@@ -16,15 +17,15 @@ const Body = () => {
 
   const fetchData = async () => {
     const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?page_type=DESKTOP_WEB_LISTING&lat=19.1174798&lng=72.86916029999999"
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=23.6906802&lng=86.9768363&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
     );
     const json = await data.json();
     console.log(json);
     setListOfRes(
-      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
     setFiltered(
-      json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
   };
   // conditional rendering using ternery operator
@@ -83,8 +84,14 @@ const Body = () => {
       </div>
       <div className="res-container">
         {filtered.map((restaurant) => {
+          console.log(restaurant?.info?.id);
           return (
-            <RestaurantCard key={restaurant?.info?.id} resData={restaurant} />
+            <Link
+              to={"/restaurants/" + restaurant?.info?.id}
+              key={restaurant?.info?.id}
+            >
+              <RestaurantCard resData={restaurant} />
+            </Link>
           );
         })}
       </div>
