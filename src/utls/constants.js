@@ -9,3 +9,4 @@ export const MENU_API =
 export const MENU_API_2 = "&catalog_qa=undefined&submitAction=ENTER";
 export const swiggy_api_URL =
   "https://www.swiggy.com/dapi/restaurants/list/v5?lat=23.6906802&lng=86.9768363&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING";
+export const GITHUB_USER_API = "https://api.github.com/users/AbhayrajPaul";
