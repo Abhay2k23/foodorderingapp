@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify-icon/react";
 import Shimmer from "./Shimmer";
+import useOnlineStatus from "../utls/useOnlineStatus";
 
 const Body = () => {
   const [listOfRes, setListOfRes] = useState([]);
@@ -28,6 +29,11 @@ const Body = () => {
       json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
   };
+
+  // onlineStatus
+  const status = useOnlineStatus();
+  if (status === false) return <h1>Look's like you are offline</h1>;
+
   // conditional rendering using ternery operator
   return listOfRes.length === 0 ? (
     <>
