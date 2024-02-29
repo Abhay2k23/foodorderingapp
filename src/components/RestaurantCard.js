@@ -9,26 +9,28 @@ const RestaurantCard = (props) => {
     cloudinaryImageId,
     avgRating,
     costForTwoString,
-    deliveryTime,
+    sla,
+    areaName,
   } = resData?.info;
   return (
-    <div className="res-card" style={styleCard}>
+    <div className="m-4 p-4 w-[250px] rounded-lg hover:bg-[#f0f0f0]">
       <img
         src={CDN_URL + cloudinaryImageId}
         alt="res-logo"
-        className="res-logo"
+        className="rounded-lg"
       />
-      <h3>{name}</h3>
-      <h4>{cuisines.join(",")} </h4>
+      <h3 className="font-bold py-4 text-xl">{name}</h3>
+      <h4 className="break-all">{cuisines.join(", ")} </h4>
       <h4>{avgRating} Stars</h4>
       <h4>{costForTwoString}</h4>
-      <h4>{deliveryTime} minutes</h4>
+      <h4>{areaName}</h4>
+      <h4>{sla.deliveryTime} minutes</h4>
     </div>
   );
 };
 
-const styleCard = {
-  backgroundColor: "#f0f0f0",
-};
+// const styleCard = {
+//   backgroundColor: "#f0f0f0",
+// };
 
 export default RestaurantCard;

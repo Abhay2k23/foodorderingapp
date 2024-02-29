@@ -47,17 +47,18 @@ const Body = () => {
     </>
   ) : (
     <div className="body">
-      <div className="filter">
-        <div className="search">
+      <div className="flex ">
+        <div className="p-4 m-4">
           <input
             type="text"
-            className="search-box"
+            className="border border-solid border-black"
             value={searchText}
             onChange={(e) => {
               setSearchText(e.target.value);
             }}
           />
           <button
+            className="px-4 py-2 bg-green-100 m-4 rounded-lg"
             onClick={() => {
               // filter the restaurant cards and update the UI
               // searchText
@@ -74,21 +75,23 @@ const Body = () => {
             Search
           </button>
         </div>
-        <button
-          className="filter-btn"
-          onClick={() => {
-            let filteredList = listOfRes.filter(
-              (res) =>
-                // console.log(res.info.avgRating >= 4);
-                res.info.avgRating >= 4.0
-            );
-            setListOfRes(filteredList);
-          }}
-        >
-          Top Rated Restaurants
-        </button>
+        <div className="px-4 py-2 m-4 flex items-center">
+          <button
+            className="px-4 py-3 bg-gray-100 rounded-lg"
+            onClick={() => {
+              let filteredList = listOfRes.filter(
+                (res) =>
+                  // console.log(res.info.avgRating >= 4);
+                  res.info.avgRating >= 4.0
+              );
+              setListOfRes(filteredList);
+            }}
+          >
+            Top Rated Restaurants
+          </button>
+        </div>
       </div>
-      <div className="res-container">
+      <div className="flex flex-wrap">
         {filtered.map((restaurant) => {
           console.log(restaurant?.info?.id);
           return (
