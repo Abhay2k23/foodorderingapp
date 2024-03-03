@@ -1,16 +1,19 @@
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, { withPromoted } from "./RestaurantCard";
 // import resList from "../utls/mockData";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify-icon/react";
 import Shimmer from "./Shimmer";
 import useOnlineStatus from "../utls/useOnlineStatus";
+import { UserContext } from "../utls/UserContext";
 
 const Body = () => {
-  const [listOfRes, setListOfRes] = useState([]);
+  const [listOfRes, setListOfRes] = useState("");
   const [filtered, setFiltered] = useState([]);
   const [searchText, setSearchText] = useState("");
+  console.log(listOfRes);
 
+  const Promoted = withPromoted(RestaurantCard);
   // console.log("re render");
   useEffect(() => {
     fetchData();
@@ -34,6 +37,7 @@ const Body = () => {
   const status = useOnlineStatus();
   if (status === false) return <h1>Look's like you are offline</h1>;
 
+  const { loggedInUser, setUserName } = useContext(UserContext);
   // conditional rendering using ternery operator
   return listOfRes.length === 0 ? (
     <>
@@ -79,16 +83,25 @@ const Body = () => {
           <button
             className="px-4 py-3 bg-gray-100 rounded-lg"
             onClick={() => {
-              let filteredList = listOfRes.filter(
-                (res) =>
-                  // console.log(res.info.avgRating >= 4);
-                  res.info.avgRating >= 4.0
+              let filteredList = listOfRes.filter((res) =>
+                // console.log(res.info.avgRating >= 4);
+                console.log(res.info.avgRating >= 4.0)
               );
               setListOfRes(filteredList);
             }}
           >
             Top Rated Restaurants
           </button>
+        </div>
+        <div className="px-4 py-2 m-4 flex items-center">
+          <label>User Name :</label>
+          <input
+            className="border border-black p-2"
+            value={loggedInUser}
+            onChange={(e) => {
+              setUserName(e.target.value);
+            }}
+          />
         </div>
       </div>
       <div className="flex flex-wrap">
@@ -99,7 +112,11 @@ const Body = () => {
               to={"/restaurants/" + restaurant?.info?.id}
               key={restaurant?.info?.id}
             >
-              <RestaurantCard resData={restaurant} />
+              {restaurant?.info?.aggregatedDiscountInfoV3 ? (
+                <Promoted resData={restaurant} />
+              ) : (
+                <RestaurantCard resData={restaurant} />
+              )}
             </Link>
           );
         })}

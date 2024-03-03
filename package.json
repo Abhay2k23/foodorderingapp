@@ -12,11 +12,13 @@
   "license": "ISC",
   "devDependencies": {
     "@iconify-icon/react": "^2.0.1",
-    "parcel": "^2.11.0"
+    "parcel": "^2.11.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "@types/react": "^18.2.61",
+    "@types/react-dom": "^18.2.19",
     "react-router-dom": "^6.22.1"
   },
   "browserslist": [

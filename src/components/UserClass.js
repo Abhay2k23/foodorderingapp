@@ -1,5 +1,6 @@
 import React from "react";
 import { GITHUB_USER_API } from "../utls/constants";
+import { UserContext } from "../utls/UserContext";
 
 class UserClass extends React.Component {
   constructor(props) {
@@ -17,20 +18,25 @@ class UserClass extends React.Component {
     this.setState({
       userInfo: json,
     });
-    console.log(json);
+    // console.log(json);
   }
 
   componentDidUpdate() {
-    console.log("componentDidUpdate");
+    // console.log("componentDidUpdate");
   }
   componentWillUnmount() {
-    console.log("componentWillUnmount");
+    // console.log("componentWillUnmount");
   }
   render() {
     const { name, location, avatar_url } = this.state.userInfo;
     console.log(name, location);
     return (
       <div className="user-card">
+        <UserContext.Consumer>
+          {({ loggedInUser }) => (
+            <h1 className="text-xl font-bold">{loggedInUser}</h1>
+          )}
+        </UserContext.Consumer>
         <img src={avatar_url} />
         <h2>Name : {name}</h2>
         <h3>Location : {location}</h3>
